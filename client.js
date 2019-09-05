@@ -1,7 +1,7 @@
 const Kafka = require('node-rdkafka');
 
 const producer = new Kafka.Producer({
-  'metadata.broker.list': 'localhost:9092',
+  'metadata.broker.list': '172.18.0.4:9092',
   'client.id': 'kafka',
   'compression.codec': 'gzip',
   'retry.backoff.ms': 200,
@@ -19,14 +19,13 @@ producer.on('ready', function() {
   try {
     console.log('Client ready. Trying to produce message: ');
 
-    setTimeout(() => {
-      console.log('Sending...: ');
-      producer.produce(
-        'some-topic',
-        null,
-        Buffer.from('Some custom message from producer!!!'),
-      );
-    }, 1000);
+    producer.produce(
+      'some-topic',
+      null,
+      Buffer.from('Some custom message from producer!!!'),
+    );
+
+    console.log('Sent!');
 
   } catch (err) {
     console.error('A problem occurred when sending our message');
@@ -37,7 +36,7 @@ producer.on('ready', function() {
 producer.on('delivery-report', function(err, report) {
   // Report of delivery statistics here:
   //
-  console.log(report);
+  console.log('Report: ', report);
 });
 
 producer.on('event.error', function(err) {

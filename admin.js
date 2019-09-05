@@ -2,7 +2,7 @@ const Kafka = require('node-rdkafka');
 
 const client = Kafka.AdminClient.create({
   'client.id': 'admin',
-  'metadata.broker.list': '172.18.0.3:9092'
+  'metadata.broker.list': 'localhost:9092'
 });
 
 client.createTopic({

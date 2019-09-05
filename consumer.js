@@ -2,7 +2,7 @@ const Kafka = require('node-rdkafka');
 
 const consumer = new Kafka.KafkaConsumer({
   'group.id': 'kafka',
-  'metadata.broker.list': 'localhost:9092',
+  'metadata.broker.list': '172.18.0.4:9092',
   'rebalance_cb': function (err, assignment) {
 
     if (err.code === Kafka.CODES.ERRORS.ERR__ASSIGN_PARTITIONS) {
